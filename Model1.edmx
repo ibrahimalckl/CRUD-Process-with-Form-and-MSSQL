@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="husuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bilgi">
+          <Key>
+            <PropertyRef Name="KullaniciNO" />
+          </Key>
+          <Property Name="KullaniciNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="varchar" MaxLength="50" />
+          <Property Name="Soyadi" Type="varchar" MaxLength="50" />
+          <Property Name="Bolum" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'husu.dbo.Kullanici_Bilgi' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Kullanici_Bilgi">
+          <Key>
+            <PropertyRef Name="Kullanici_Adi" />
+            <PropertyRef Name="Sifre" />
+          </Key>
+          <Property Name="Kullanici_Adi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="husuModelStoreContainer">
+          <EntitySet Name="Bilgi" EntityType="Self.Bilgi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici_Bilgi" EntityType="Self.Kullanici_Bilgi" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Kullanici_Bilgi].[Kullanici_Adi] AS [Kullanici_Adi], 
+    [Kullanici_Bilgi].[Sifre] AS [Sifre]
+    FROM [dbo].[Kullanici_Bilgi] AS [Kullanici_Bilgi]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="husuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bilgi">
+          <Key>
+            <PropertyRef Name="KullaniciNO" />
+          </Key>
+          <Property Name="KullaniciNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="husuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bilgi" EntityType="Self.Bilgi" />
+          <EntitySet Name="Kullanici_Bilgi" EntityType="husuModel.Kullanici_Bilgi" />
+        </EntityContainer>
+        <EntityType Name="Kullanici_Bilgi">
+          <Key>
+            <PropertyRef Name="Kullanici_Adi" />
+            <PropertyRef Name="Sifre" />
+          </Key>
+          <Property Name="Kullanici_Adi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="husuModelStoreContainer" CdmEntityContainer="husuEntities">
+          <EntitySetMapping Name="Bilgi">
+            <EntityTypeMapping TypeName="husuModel.Bilgi">
+              <MappingFragment StoreEntitySet="Bilgi">
+                <ScalarProperty Name="KullaniciNO" ColumnName="KullaniciNO" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+                <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici_Bilgi">
+            <EntityTypeMapping TypeName="husuModel.Kullanici_Bilgi">
+              <MappingFragment StoreEntitySet="Kullanici_Bilgi">
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
